@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahallah TV - Adzan TV Digital & STB Android</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #005a31;
+            --primary-light: #1a7a47;
+            --primary-dark: #004026;
+            --accent: #f9c80e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        .cta-btn {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .cta-btn:hover {
+            background-color: #e6b400;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 5rem 0;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+            animation: fadeInLeft 1s ease-out;
+        }
+        
+        .hero-text h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            animation: fadeInRight 1s ease-out;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Animations */
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Features Section */
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        .gold-feature {
+            border: 2px solid var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        /* App Preview */
+        .app-preview {
+            background-color: var(--gray-light);
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .preview-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .preview-img {
+            width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .preview-img:hover {
+            transform: scale(1.05);
+        }
+        
+        .video-container {
+            max-width: 800px;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-placeholder {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .video-placeholder i {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        .video-placeholder p {
+            font-size: 1.2rem;
+        }
+        
+        /* Pricing Section */
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 15px;
+            width: 300px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-15px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transform: rotate(45deg) translate(30%, -50%);
+            transform-origin: top right;
+            font-size: 0.8rem;
+        }
+        
+        .pricing-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-features li i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        /* Marquee */
+        .marquee {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .marquee-content span {
+            color: var(--accent);
+            margin: 0 1rem;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .footer-column p, .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text h2 {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-15px);
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            
+            .hero-text h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* ============= POPUP UMUM ============= */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .terms-popup, .install-popup, .faq-popup {
+            background-color: white;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .popup-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .popup-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .popup-header h2 i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        .close-popup {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-popup:hover {
+            transform: rotate(90deg);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .popup-content {
+            padding: 2rem;
+            max-height: calc(85vh - 80px);
+            overflow-y: auto;
+        }
+
+        .popup-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .popup-content > p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        /* Styling khusus untuk Panduan Install */
+        .install-guide {
+            margin-top: 1.5rem;
+        }
+
+        .device-type {
+            margin-bottom: 2.5rem;
+            background-color: var(--gray-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .device-type h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .device-type h4 i {
+            color: var(--accent);
+        }
+
+        .step-list {
+            margin-left: 1.5rem;
+        }
+
+        .step-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+        }
+
+        .step-list li strong {
+            color: var(--primary);
+        }
+
+        .note-box {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .note-box h5 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-box h5 i {
+            color: var(--accent);
+        }
+
+        .package-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .package-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-top: 3px solid var(--primary);
+        }
+
+        .package-card h5 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .package-card ul {
+            margin-left: 1rem;
+        }
+
+        .package-card li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Styling khusus untuk FAQ */
+        .faq-container {
+            margin-top: 1.5rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 3px 10px rgba(0, 90, 49, 0.1);
+        }
+
+        .faq-question {
+            background-color: var(--light);
+            padding: 1.2rem 1.5rem;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #f0f0f0;
+        }
+
+        .faq-question:after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question:after {
+            content: '-';
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+
+        .faq-answer p, .faq-answer ul, .faq-answer ol {
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer p:last-child, .faq-answer ul:last-child, .faq-answer ol:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-answer ul, .faq-answer ol {
+            margin-left: 1.5rem;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+        }
+
+        .check-icon {
+            color: #28a745;
+            margin-right: 8px;
+        }
+
+        .cross-icon {
+            color: #dc3545;
+            margin-right: 8px;
+        }
+
+        .info-icon {
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        .code-example {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--primary);
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            border-radius: 5px;
+            color: var(--dark);
+        }
+
+        .device-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .device-tag {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        .android-version {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #212529;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .contact-info {
+            background-color: var(--gray-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info h5 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tombol buka popup di footer */
+        .terms-btn, .install-btn, .faq-btn {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 1rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .terms-btn:hover, .install-btn:hover, .faq-btn:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+
+        /* Tombol buka popup di navigasi */
+        .terms-nav-btn, .install-nav-btn, .faq-nav-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 0.3rem 0;
+        }
+
+        .terms-nav-btn:hover, .install-nav-btn:hover, .faq-nav-btn:hover {
+            color: var(--accent);
+        }
+
+        /* Accordion untuk Syarat & Ketentuan */
+        .popup-accordion {
+            margin-top: 1.5rem;
+        }
+
+        .popup-term-item {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .popup-term-item h4 {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .popup-term-item h4:hover {
+            background-color: var(--primary);
+        }
+
+        .popup-term-item h4:after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .popup-term-item.active h4:after {
+            content: '-';
+        }
+
+        .popup-term-details {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: var(--light);
+        }
+
+        .popup-term-item.active .popup-term-details {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+
+        .popup-term-details p {
+            margin-bottom: 1rem;
+        }
+
+        .popup-term-details ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup-term-details li {
+            margin-bottom: 0.5rem;
+        }
+
+        .popup-term-details p:last-child,
+        .popup-term-details ul:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Styling khusus untuk Popup Registrasi */
+        .registration-popup {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--accent);
+            width: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 90, 49, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .selected-package {
+            background-color: var(--gray-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .selected-package strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .selected-package span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .submit-btn {
+            flex: 1;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .cancel-btn {
+            flex: 0.5;
+            background-color: var(--gray-light);
+            color: var(--dark);
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cancel-btn:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive untuk form */
+        @media (max-width: 768px) {
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .cancel-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-tv"></i>
+                <h1>Mahallah <span>TV</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#preview">Preview</a></li>
+                    <li><a href="#pricing">Harga</a></li>
+                    <li><button class="faq-nav-btn" id="openFaqPopupNav">FAQ</button></li>
+                    <li><button class="install-nav-btn" id="openInstallPopupNav">Install</button></li>
+                    <li><button class="terms-nav-btn" id="openTermsPopupNav">S&K</button></li>
+                </ul>
+            </nav>
+            <a href="#pricing" class="cta-btn">Beli Sekarang</a>
+        </div>
+    </header>
+
+    <!-- Marquee Teks Berjalan -->
+    <div class="marquee">
+        <div class="marquee-content">
+            <i class="fas fa-volume-up"></i> Audio Shalawat Otomatis <span>•</span>
+            <i class="fas fa-clock"></i> Waktu Adzan Kemenag <span>•</span>
+            <i class="fas fa-palette"></i> Ganti Warna Tema <span>•</span>
+            <i class="fas fa-sliders-h"></i> Slide Gambar & Informasi <span>•</span>
+            <i class="fa-brands fa-chromecast"></i> Berbasis OFFLINE <span>•</span>
+            <i class="fas fa-gamepad"></i> Remote Terintegrasi
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2>Adzan TV Digital & STB Android</h2>
+                <p>Aplikasi pintar untuk menampilkan waktu shalat, adzan, dan informasi keislaman secara real-time di TV digital Anda. Dilengkapi dengan fitur lengkap untuk kebutuhan masjid, musala, dan rumah.</p>
+                <a href="#features" class="cta-btn">Lihat Fitur Lengkap</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEh9ijkhiVycixFIhE6Z8uiVTtoe1oej9DUDMLBgM9wVuQ1LoDkIG0xD16_XPzOPEpz4Zychasi5CZ_Dmea2i_RZA1oMeWijxcs8HhAqNn_fPPEB7sQaii0vJFMvjypMsbBPHjfVyMhymEdy5HWGSE-t8PL9eEbc0uFbAsHTJB6J7Sye7M3Kl2TqeNPLlLha" alt="Mahallah TV Interface">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Fitur Unggulan</h2>
+                <p>Mahallah TV dilengkapi dengan berbagai fitur canggih untuk pengalaman adzan digital yang lebih baik</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <h3>Waktu Adzan Kemenag</h3>
+                    <p>Waktu adzan sudah menyesuaikan dengan waktu Kemenag + lokasi masjid Anda secara akurat.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <h3>Audio Shalawat Otomatis</h3>
+                    <p>Muncul box saat menunggu waktu adzan dengan Audio Shalawat yang diputar secara otomatis.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Hitung Mundur Iqamah</h3>
+                    <p>Hitung mundur waktu Iqamah + Audio Adzan saat waktunya tiba. Tampilan box hitung mundur 15 detik sebelum Iqamah.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Ganti Warna Tema</h3>
+                    <p>Anda dapat mengganti warna tema aplikasi sesuai dengan preferensi atau kesesuaian lingkungan.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3>Slide Gambar & Informasi</h3>
+                    <p>Slide gambar, informasi Masjid, Hari Besar Islam, serta Ayat dan Hadits pilihan.</p>
+                </div>
+                
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-power-off"></i>
+                    </div>
+                    <h3>On/Off Layar</h3>
+                    <p>Bisa mengaktifkan atau menonaktifkan layar secara manual maupun otomatis sesuai jadwal.</p>
+                </div>
+            </div>
+            
+            <div class="section-title animate-on-scroll">
+                <h2>Fitur EMAS</h2>
+                <p>Fitur eksklusif yang membuat Mahallah TV berbeda dari aplikasi sejenis</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card gold-feature animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fa-brands fa-chromecast"></i></i>
+                    </div>
+                    <h3>Berbasis OFFLINE</h3>
+                    <p>Aplikasi dapat berjalan tanpa koneksi internet setelah diinstall. Update data hanya perlu dilakukan secara berkala.</p>
+                </div>
+                
+                <div class="feature-card gold-feature animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Remote Terintegrasi</h3>
+                    <p>Memiliki Remote yang terintegrasi dengan Aplikasi Mahallah TV untuk kontrol yang lebih mudah dan praktis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Preview Section -->
+    <section id="preview" class="app-preview">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Tampilan Aplikasi</h2>
+                <p>Lihat bagaimana Mahallah TV menghadirkan pengalaman adzan digital yang menarik dan informatif</p>
+            </div>
+            
+            <div class="preview-container">
+                <div class="preview-images">
+                    <img class="preview-img animate-on-scroll" src="https://blogger.googleusercontent.com/img/a/AVvXsEhTQl6ai7U7SZraXzwd0EFt6yMey4STRMy53jvV2Z4s_GjspkrGLi4xcMnhO5m19ncN1l_D3Uq0t_M-iKwgwzD3PBtIC_jAOrDi-JvvAJqiwyCtaVzGCDIfstRilhUQzNUD3ECkoxABeGwSuNRAMG3qLUX55XIj8GnrWohFh_PLUvik7RVXhBwL5k0MPzRW" alt="Tampilan 1 - Waktu Shalat">
+                    <img class="preview-img animate-on-scroll" src="https://blogger.googleusercontent.com/img/a/AVvXsEhNP2mYDb0G571BX3MNV4Nc5Aqac1gqSxZT-foEvAFeYQYpxXWoSvCUxw-jx8gVvCqPK-nuY8aB1jia8pcIv4q4rwrEdX83rWpBMXPIxEPg11zYI_NJ-xTOcvYcs1IKT8tkMOdknwxLC5WA1cjY4inr6Wd46XX32eKCR_ruW_dvSuJs1SmwJw1BsUS6M6cI" alt="Tampilan 2 - Slide Informasi">
+                    <img class="preview-img animate-on-scroll" src="https://blogger.googleusercontent.com/img/a/AVvXsEi8YYn5ni1pQI8XxaA-Kp1uTfTFZeVEoPgRZDYBVaX39vuE4_WebziEXVZEfSCfm49B9-199FEOiRjRkn1odwVP4t1W32LjBFUiHWDywuioj2SD_tJ7fkvs1xO_DL5YjpV4LE5XiFXDX8qdgVoxlJty1uHGGRCowH7QMpPaLC-EmmrWHZ1Z83IfTFlqk7T3" alt="Tampilan 3 - Hitung Mundur Iqamah">
+                    <img class="preview-img animate-on-scroll" src="https://blogger.googleusercontent.com/img/a/AVvXsEjFJSZC5pDtZEOy2yWCc7iRTy-pEghy6SMHYKeaMW2BRsMO-33EqvA1iq77O0dhqNk3vKqnx9ONOV9DQFPwjILuiTQqLQ__kMJzaa-Lwe5P3IH5F90pdeXxbTmapjyShDLT3IpvyKB-_gsCHCWEoD5On_BUSKka9i_bUkt-BdGw7ggKlnPvq0AJCEL6dk6n" alt="Tampilan 4 - Remote Aplikasi">
+                </div>
+                
+                <div class="video-container animate-on-scroll">
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <p>Video Demo Mahallah TV</p>
+                        <p>(Video akan ditampilkan di sini)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-title animate-on-scroll">
+                <h2>Paket Harga</h2>
+                <p>Pilih paket yang sesuai dengan kebutuhan Anda. Hanya jual aplikasi Mahallah TV dan Remote Mahallah TV</p>
+            </div>
+            
+            <div class="pricing-container">
+                <div class="pricing-card animate-on-scroll">
+                    <div class="pricing-title">Paket Triwulan</div>
+                    <div class="pricing-price">Rp 100<span>ribu</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Aplikasi Mahallah TV</li>
+                        <li><i class="fas fa-check"></i> Remote Mahallah TV</li>
+                        <li><i class="fas fa-check"></i> Update 3 bulan</li>
+                        <li><i class="fas fa-times"></i> Update jadwal otomatis</li>
+                        <li>+ Rp 50rb biaya install</li>
+                    </ul>
+                    <a href="#" class="cta-btn">Pilih Paket Ini</a>
+                </div>
+                
+                <div class="pricing-card popular animate-on-scroll">
+                    <div class="popular-badge">POPULER</div>
+                    <div class="pricing-title">Paket Tahunan</div>
+                    <div class="pricing-price">Rp 350<span>ribu</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Aplikasi Mahallah TV</li>
+                        <li><i class="fas fa-check"></i> Remote Mahallah TV</li>
+                        <li><i class="fas fa-check"></i> Update 1 tahun</li>
+                        <li><i class="fas fa-check"></i> Update jadwal otomatis</li>
+                        <li>+ Rp 50rb biaya install</li>
+                    </ul>
+                    <a href="#" class="cta-btn">Pilih Paket Ini</a>
+                </div>
+                
+                <div class="pricing-card animate-on-scroll">
+                    <div class="pricing-title">Paket Lifetime</div>
+                    <div class="pricing-price">Rp 699<span>ribu</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Aplikasi Mahallah TV</li>
+                        <li><i class="fas fa-check"></i> Remote Mahallah TV</li>
+                        <li><i class="fas fa-check"></i> Update seumur hidup</li>
+                        <li><i class="fas fa-check"></i> Update jadwal otomatis</li>
+                        <li><i class="fas fa-check"></i> Gratis pemasangan</li>
+                    </ul>
+                    <a href="#" class="cta-btn">Pilih Paket Ini</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-tv"></i>
+                        <h1>Mahallah <span>TV</span></h1>
+                    </div>
+                    <p>Adzan TV Digital & STB Android terbaik dengan fitur lengkap untuk masjid, musala, dan rumah Anda.</p>
+                    <button class="faq-btn" id="openFaqPopupFooter">Tanya Jawab (FAQ)</button>
+                    <button class="install-btn" id="openInstallPopupFooter">Panduan Install</button>
+                    <button class="terms-btn" id="openTermsPopupFooter">Syarat & Ketentuan</button>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Kontak Kami</h3>
+                    <p><i class="fas fa-phone"></i> +62 896-0974-5090</p>
+                    <p><i class="fas fa-envelope"></i> mahallahtv@outlook.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Tapa, Gorontalo</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Link Cepat</h3>
+                    <a href="#home">Beranda</a>
+                    <a href="#features">Fitur</a>
+                    <a href="#preview">Preview</a>
+                    <a href="#pricing">Harga</a>
+                    <a href="#" id="openFaqPopupFooterLink">FAQ</a>
+                    <a href="#" id="openInstallPopupFooterLink">Panduan Install</a>
+                    <a href="#" id="openTermsPopupFooterLink">Syarat & Ketentuan</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Dukungan</h3>
+                    <a href="#" id="openFaqPopupSupport">FAQ</a>
+                    <a href="#" id="openInstallPopupSupport">Panduan Install</a>
+                    <a href="#">Update Jadwal</a>
+                    <a href="#">Remote Setup</a>
+                    <a href="#">Hubungi Support</a>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 Mahallah TV. Hak Cipta Dilindungi. 
+                    <a href="#" id="openFaqPopupCopyright" style="color: var(--accent); text-decoration: underline;">FAQ</a> | 
+                    <a href="#" id="openInstallPopupCopyright" style="color: var(--accent); text-decoration: underline;">Panduan Install</a> | 
+                    <a href="#" id="openTermsPopupCopyright" style="color: var(--accent); text-decoration: underline;">Syarat & Ketentuan</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- POPUP SYARAT & KETENTUAN -->
+    <div class="popup-overlay" id="termsPopup">
+        <div class="terms-popup">
+            <div class="popup-header">
+                <h2><i class="fas fa-file-contract"></i> Syarat & Ketentuan</h2>
+                <button class="close-popup" id="closeTermsPopup">&times;</button>
+            </div>
+            
+            <div class="popup-content">
+                <h3>Aplikasi Adzan – Mahallah TV</h3>
+                <p>Dengan melakukan pembelian, pengunduhan, pemasangan, dan/atau penggunaan Aplikasi Mahallah TV, pengguna dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan berikut:</p>
+                
+                <div class="popup-accordion">
+                    <div class="popup-term-item">
+                        <h4>1. Ketentuan Umum</h4>
+                        <div class="popup-term-details">
+                            <p>Aplikasi Mahallah TV merupakan aplikasi adzan dan informasi masjid yang digunakan untuk keperluan ibadah dan informasi.</p>
+                            <p>Aplikasi ini digunakan pada perangkat yang kompatibel (seperti STB Android / Android TV / perangkat Android lainnya).</p>
+                            <p>Pengguna bertanggung jawab penuh atas penggunaan aplikasi sesuai dengan fungsi dan ketentuan yang berlaku.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>2. Fitur Aplikasi</h4>
+                        <div class="popup-term-details">
+                            <p>Aplikasi Mahallah TV memiliki fitur-fitur utama sebagai berikut:</p>
+                            <ul>
+                                <li>Waktu adzan menyesuaikan dengan waktu resmi Kementerian Agama (Kemenag) dan lokasi masjid</li>
+                                <li>Tampilan box saat menunggu waktu adzan disertai audio shalawat otomatis</li>
+                                <li>Hitung mundur waktu Iqamah dan audio adzan otomatis pada waktunya</li>
+                                <li>Tampilan box hitung mundur 15 detik sebelum Iqamah</li>
+                                <li>Pengaturan ganti warna tema</li>
+                                <li>Slide gambar</li>
+                                <li>Slide informasi Masjid, Hari Besar Islam, Ayat Al-Qur'an / Hadits</li>
+                                <li>Teks berjalan (running text)</li>
+                                <li>Pengaturan On/Off layar secara manual maupun otomatis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>3. Fitur EMAS</h4>
+                        <div class="popup-term-details">
+                            <p>Fitur EMAS pada aplikasi Mahallah TV meliputi:</p>
+                            <ul>
+                                <li>Aplikasi dapat digunakan secara OFFLINE setelah proses pengaturan awal.</li>
+                                <li>Tersedia remote control yang terintegrasi langsung dengan Aplikasi Mahallah TV untuk kemudahan pengoperasian.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>4. Lisensi dan Hak Penggunaan</h4>
+                        <div class="popup-term-details">
+                            <ul>
+                                <li>Pembelian aplikasi memberikan hak penggunaan lisensi, bukan kepemilikan penuh atas aplikasi.</li>
+                                <li>Lisensi hanya berlaku untuk perangkat yang telah didaftarkan.</li>
+                                <li>Pengguna dilarang menggandakan, menjual kembali, memodifikasi, atau mendistribusikan aplikasi tanpa izin tertulis dari pengembang.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>5. Pembaruan dan Dukungan</h4>
+                        <div class="popup-term-details">
+                            <ul>
+                                <li>Pengembang berhak melakukan pembaruan fitur, perbaikan bug, atau penyesuaian sistem tanpa pemberitahuan terlebih dahulu.</li>
+                                <li>Dukungan teknis diberikan sesuai kebijakan pengembang.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>6. Batasan Tanggung Jawab</h4>
+                        <div class="popup-term-details">
+                            <p>Pengembang tidak bertanggung jawab atas kerugian yang disebabkan oleh:</p>
+                            <ul>
+                                <li>Kesalahan penggunaan aplikasi</li>
+                                <li>Gangguan perangkat keras atau sistem operasi</li>
+                                <li>Gangguan jaringan (jika dibutuhkan pada kondisi tertentu)</li>
+                                <li>Perbedaan kecil waktu adzan akibat pengaturan lokasi atau perangkat menjadi tanggung jawab pengguna untuk menyesuaikan pengaturan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>7. Penghentian Layanan</h4>
+                        <div class="popup-term-details">
+                            <p>Pengembang berhak menghentikan layanan atau akses aplikasi apabila ditemukan pelanggaran terhadap syarat dan ketentuan ini.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-term-item">
+                        <h4>8. Kontak dan Informasi</h4>
+                        <div class="popup-term-details">
+                            <div class="contact-info">
+                                <h5>Untuk informasi lebih lanjut, bantuan teknis, atau pertanyaan terkait aplikasi Mahallah TV:</h5>
+                                <p><i class="fab fa-whatsapp"></i> WhatsApp: 0896-0974-5090</p>
+                                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:mahallahtv@outlook.com">mahallahtv@outlook.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP PANDUAN INSTALL -->
+    <div class="popup-overlay" id="installPopup">
+        <div class="install-popup">
+            <div class="popup-header">
+                <h2><i class="fas fa-download"></i> Panduan Install Mahallah TV</h2>
+                <button class="close-popup" id="closeInstallPopup">&times;</button>
+            </div>
+            
+            <div class="popup-content">
+                <h3>Panduan Lengkap Install Aplikasi Mahallah TV</h3>
+                <p>Ikuti langkah-langkah berikut untuk menginstall dan mengatur aplikasi Mahallah TV di perangkat Anda.</p>
+                
+                <div class="install-guide">
+                    <!-- Untuk STB Android -->
+                    <div class="device-type">
+                        <h4><i class="fas fa-satellite-dish"></i> 1. Untuk STB Android</h4>
+                        <ol class="step-list">
+                            <li><strong>STB yang sudah di Root</strong> - Pastikan STB Android Anda sudah di-root untuk akses penuh.</li>
+                            <li><strong>Setting waktu pada STB</strong> - Atur waktu sesuai dengan zona waktu lokasi Anda.</li>
+                            <li><strong>Instal Aplikasi Mahallah TV</strong> - Install aplikasi Mahallah TV melalui file APK yang telah disediakan.</li>
+                            <li><strong>Buka Aplikasinya</strong> - Setelah install, buka aplikasi dan akan muncul tampilan utama.</li>
+                            <li><strong>Ubah data sesuai keinginan</strong> - Sesuaikan waktu Countdown dan pengaturan lainnya dengan menggunakan mouse.</li>
+                        </ol>
+                        
+                        <div class="note-box">
+                            <h5><i class="fas fa-info-circle"></i> Catatan Penting:</h5>
+                            <p><strong>Paket 3 Bulanan:</strong> Gunakan mouse untuk mengubah semua pengaturan.</p>
+                            <p><strong>Paket Tahunan dan Lifetime:</strong> Sudah mendapatkan Remote Aplikasi Mahallah TV.</p>
+                        </div>
+                        
+                        <h5 style="color: var(--primary); margin-top: 1.5rem;">Untuk Paket Tahunan dan Lifetime (Remote Control):</h5>
+                        <ol class="step-list" start="6">
+                            <li><strong>Aktifkan hotspot di HP</strong> - Aktifkan hotspot dari HP Anda (bisa juga melalui STB jika mendukung fitur Wi-Fi Hotspot).</li>
+                            <li><strong>Cek IP Address di HP Anda</strong> - Periksa alamat IP yang terhubung.</li>
+                            <li><strong>Akses Remote via Browser</strong> - Buka browser Chrome dan ketikkan IP dengan tambahan port 8080, contoh: <code>192.168.1.39:8080</code></li>
+                            <li><strong>Masukkan PIN default</strong> - Gunakan PIN default: <strong>1234</strong></li>
+                            <li><strong>Ganti semua data sesuai keinginan</strong> - Gunakan remote untuk mengatur semua pengaturan sesuai kebutuhan.</li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Untuk TV Android (Smart TV) -->
+                    <div class="device-type">
+                        <h4><i class="fas fa-tv"></i> 2. Untuk TV Android (Smart TV)</h4>
+                        <ol class="step-list">
+                            <li><strong>Setting waktu sesuai lokasi</strong> - Atur waktu di TV Android sesuai dengan zona waktu lokasi Anda saat ini.</li>
+                            <li><strong>Instal Aplikasi Mahallah TV</strong> - Install aplikasi melalui Google Play Store atau file APK.</li>
+                            <li><strong>Buka Aplikasinya</strong> - Jalankan aplikasi untuk melihat tampilan utama.</li>
+                            <li><strong>Ubah data sesuai keinginan</strong> - Sesuaikan pengaturan dengan menggunakan mouse atau remote TV.</li>
+                        </ol>
+                        
+                        <div class="note-box">
+                            <h5><i class="fas fa-info-circle"></i> Catatan Penting:</h5>
+                            <p><strong>Paket 3 Bulanan:</strong> Gunakan mouse untuk mengubah semua pengaturan.</p>
+                            <p><strong>Paket Tahunan dan Lifetime:</strong> Sudah mendapatkan Remote Aplikasi Mahallah TV.</p>
+                        </div>
+                        
+                        <h5 style="color: var(--primary); margin-top: 1.5rem;">Untuk Paket Tahunan dan Lifetime (Remote Control):</h5>
+                        <ol class="step-list" start="5">
+                            <li><strong>Aktifkan hotspot</strong> - Aktifkan hotspot dari HP atau melalui Android TV jika memungkinkan.</li>
+                            <li><strong>Cek IP Address</strong> - Periksa alamat IP di HP atau TV Anda.</li>
+                            <li><strong>Akses Remote via Browser</strong> - Buka browser Chrome dan ketikkan IP dengan port 8080, contoh: <code>192.168.1.39:8080</code></li>
+                            <li><strong>Masukkan PIN default</strong> - Gunakan PIN default: <strong>1234</strong></li>
+                            <li><strong>Ganti semua data sesuai keinginan</strong> - Atur semua pengaturan menggunakan remote aplikasi.</li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Informasi Paket -->
+                    <div class="package-info">
+                        <div class="package-card">
+                            <h5><i class="fas fa-calendar-alt"></i> Paket 3 Bulanan</h5>
+                            <ul>
+                                <li>Gunakan mouse untuk setting</li>
+                                <li>Update 3 bulan</li>
+                                <li>+ Rp 50rb biaya install</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="package-card">
+                            <h5><i class="fas fa-calendar-check"></i> Paket Tahunan</h5>
+                            <ul>
+                                <li>Dapatkan Remote App</li>
+                                <li>Update 1 tahun</li>
+                                <li>Remote via browser</li>
+                                <li>+ Rp 50rb biaya install</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="package-card">
+                            <h5><i class="fas fa-crown"></i> Paket Lifetime</h5>
+                            <ul>
+                                <li>Dapatkan Remote App</li>
+                                <li>Update seumur hidup</li>
+                                <li>Remote via browser</li>
+                                <li>Gratis pemasangan</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Informasi Kontak -->
+                    <div class="contact-info">
+                        <h5><i class="fas fa-life-ring"></i> Butuh Bantuan?</h5>
+                        <p>Jika mengalami kesulitan dalam proses install atau pengaturan, hubungi tim support kami:</p>
+                        <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/6289609745090">0896-0974-5090</a></p>
+                        <p><i class="fas fa-envelope"></i> Email: <a href="mailto:mahallahtv@outlook.com">mahallahtv@outlook.com</a></p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">Support tersedia Senin - Jumat, 09:00 - 17:00 WIB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP FAQ -->
+    <div class="popup-overlay" id="faqPopup">
+        <div class="faq-popup">
+            <div class="popup-header">
+                <h2><i class="fas fa-question-circle"></i> Tanya Jawab (FAQ)</h2>
+                <button class="close-popup" id="closeFaqPopup">&times;</button>
+            </div>
+            
+            <div class="popup-content">
+                <h3>Pertanyaan yang Sering Ditanyakan</h3>
+                <p>Temukan jawaban untuk pertanyaan umum seputar Mahallah TV</p>
+                
+                <div class="faq-container">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            1. Apa itu Mahallah TV?
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Mahallah TV</strong> adalah aplikasi Adzan Otomatis & Informasi Masjid berbasis Android yang dirancang khusus untuk TV Masjid / STB, menampilkan jadwal shalat, adzan otomatis, pengumuman, dan media visual secara profesional.</p>
+                            <p>Aplikasi ini dibuat khusus untuk kebutuhan masjid, musala, dan lembaga keislaman dengan tampilan yang elegan dan fitur lengkap.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            2. Apakah Mahallah TV membutuhkan internet?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-times-circle cross-icon"></i> <strong>Tidak.</strong></p>
+                            <p>Mahallah TV dapat berjalan <strong>100% offline</strong>. Semua fitur utama seperti:</p>
+                            <ul>
+                                <li>Adzan otomatis</li>
+                                <li>Audio shalawat</li>
+                                <li>Tampilan informasi</li>
+                                <li>Remote kontrol</li>
+                            </ul>
+                            <p>tetap berfungsi tanpa koneksi internet setelah proses instalasi awal.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            3. Bagaimana cara mengontrol Mahallah TV?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Mahallah TV dapat dikontrol melalui HP Android menggunakan remote berbasis browser <strong>(tanpa install aplikasi tambahan)</strong>.</p>
+                            <p>Cukup buka browser di HP Anda dan akses:</p>
+                            <div class="code-example">
+                                http://IP-TV:8080<br>
+                                <em>contoh: http://192.168.1.30:8080</em>
+                            </div>
+                            <p>Anda akan mendapatkan antarmuka remote lengkap untuk mengatur semua fitur Mahallah TV.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 4 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            4. Apakah HP dan TV harus satu jaringan WiFi?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-check-circle check-icon"></i> <strong>Ya.</strong></p>
+                            <p>HP dan TV/STB harus berada di jaringan yang sama (WiFi lokal / hotspot).</p>
+                            <p><strong>Internet tidak wajib</strong>, yang penting HP dan TV berada dalam satu jaringan lokal yang sama untuk remote control berfungsi.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 5 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            5. Perangkat apa saja yang didukung?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Mahallah TV mendukung berbagai perangkat Android:</p>
+                            <div class="device-list">
+                                <span class="device-tag">Android TV</span>
+                                <span class="device-tag">STB Android (seperti HG680-P / HG860-P)</span>
+                                <span class="device-tag">TV Android Box</span>
+                                <span class="device-tag">Perangkat Android lainnya</span>
+                            </div>
+                            <p style="margin-top: 1rem;"><i class="fas fa-info-circle info-icon"></i> <strong>Minimum Android:</strong> <span class="android-version">Android 5.0 (Lollipop)</span></p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 6 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            6. Apakah adzan bisa diputar secara otomatis?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-check-circle check-icon"></i> <strong>Bisa.</strong></p>
+                            <p>Adzan akan diputar otomatis sesuai jadwal shalat yang telah diatur, dan juga bisa:</p>
+                            <ul>
+                                <li>Diputar manual dari remote</li>
+                                <li>Diatur durasi iqamah (hitung mundur)</li>
+                                <li>Disesuaikan volume dan audio</li>
+                                <li>Dipilih suara adzan yang diinginkan</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 7 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            7. Apakah bisa menampilkan teks pengumuman masjid?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-check-circle check-icon"></i> <strong>Bisa.</strong></p>
+                            <p>Mahallah TV mendukung berbagai fitur informasi:</p>
+                            <ul>
+                                <li><strong>Running text</strong> (teks berjalan)</li>
+                                <li>Pesan pengumuman statis</li>
+                                <li>Informasi kegiatan masjid</li>
+                                <li>Ganti teks langsung dari HP via remote</li>
+                                <li>Slide informasi dengan gambar</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 8 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            8. Bagaimana jika listrik atau TV mati?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-thumbs-up info-icon"></i> <strong>Tenang</strong></p>
+                            <p>Semua pengaturan Mahallah TV tersimpan otomatis di perangkat. Saat TV hidup kembali, aplikasi akan:</p>
+                            <ul>
+                                <li>Melanjutkan pengaturan terakhir</li>
+                                <li>Siap diputar tanpa setting ulang</li>
+                                <li>Menjalankan adzan sesuai jadwal</li>
+                                <li>Menampilkan informasi yang sudah diatur</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 9 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            9. Apakah aman digunakan di masjid?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-check-circle check-icon"></i> <strong>Aman & stabil.</strong></p>
+                            <p>Mahallah TV dirancang khusus untuk penggunaan di masjid:</p>
+                            <ul>
+                                <li>Tidak membutuhkan akun login</li>
+                                <li>Tidak mengirim data ke internet</li>
+                                <li>Tidak ada iklan sama sekali</li>
+                                <li>Bisa dikunci layar (kiosk mode)</li>
+                                <li>Cocok untuk pemakaian 24 jam non-stop</li>
+                                <li>Stabil dan tidak mudah crash</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 10 -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            10. Apakah Mahallah TV cocok untuk semua masjid?
+                        </div>
+                        <div class="faq-answer">
+                            <p><i class="fas fa-check-circle check-icon"></i> <strong>Sangat cocok</strong>, baik untuk:</p>
+                            <ul>
+                                <li>Masjid besar</li>
+                                <li>Musholla kecil</li>
+                                <li>Sekolah dan pesantren</li>
+                                <li>Aula dan ruang publik</li>
+                                <li>Rumah pribadi</li>
+                            </ul>
+                            <p>Mahallah TV dirancang sederhana, stabil, dan mudah digunakan oleh pengurus masjid tanpa perlu keahlian teknis khusus.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Informasi Kontak -->
+                <div class="contact-info">
+                    <h5><i class="fas fa-comments"></i> Masih Punya Pertanyaan?</h5>
+                    <p>Jika pertanyaan Anda belum terjawab di atas, jangan ragu untuk menghubungi kami:</p>
+                    <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/6289609745090">0896-0974-5090</a></p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:mahallahtv@outlook.com">mahallahtv@outlook.com</a></p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">Kami siap membantu Anda Senin - Jumat, 09:00 - 17:00 WIB</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP REGISTRASI -->
+    <div class="popup-overlay" id="registrationPopup">
+        <div class="registration-popup">
+            <div class="popup-header">
+                <h2><i class="fas fa-shopping-cart"></i> Form Registrasi</h2>
+                <button class="close-popup" id="closeRegistrationPopup">&times;</button>
+            </div>
+            
+            <div class="popup-content">
+                <h3>Registrasi Pembelian Mahallah TV</h3>
+                <p>Silakan isi data diri Anda untuk melanjutkan pembelian aplikasi Mahallah TV</p>
+                
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName"><i class="fas fa-user"></i> Nama Lengkap</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Masukkan nama lengkap Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address"><i class="fas fa-home"></i> Alamat Lengkap</label>
+                        <textarea id="address" name="address" rows="3" required placeholder="Masukkan alamat lengkap Anda"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-phone"></i> Nomor HP/WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Contoh: 081234567890">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mosqueName"><i class="fas fa-mosque"></i> Nama Masjid/Musholla</label>
+                        <input type="text" id="mosqueName" name="mosqueName" required placeholder="Masukkan nama masjid/musholla">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mosqueAddress"><i class="fas fa-map-marker-alt"></i> Alamat Masjid/Musholla</label>
+                        <textarea id="mosqueAddress" name="mosqueAddress" rows="3" required placeholder="Masukkan alamat lengkap masjid/musholla"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tvType"><i class="fas fa-tv"></i> Jenis TV/Perangkat</label>
+                        <select id="tvType" name="tvType" required>
+                            <option value="" disabled selected>Pilih jenis perangkat</option>
+                            <option value="STB Android">STB Android</option>
+                            <option value="TV Android">TV Android (Smart TV)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="packageInfo">
+                        <label><i class="fas fa-box"></i> Paket yang Dipilih</label>
+                        <div class="selected-package">
+                            <strong id="selectedPackageName">-</strong>
+                            <span id="selectedPackagePrice">-</span>
+                        </div>
+                        <input type="hidden" id="packageType" name="packageType">
+                    </div>
+                    
+                    <div class="note-box">
+                        <h5><i class="fas fa-info-circle"></i> Informasi Penting</h5>
+                        <p>Setelah mengisi form ini, Anda akan diarahkan ke WhatsApp untuk konfirmasi pembelian.</p>
+                        <p>Pastikan nomor WhatsApp Anda aktif untuk komunikasi selanjutnya.</p>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="submit" class="submit-btn">
+                            <i class="fab fa-whatsapp"></i> Kirim via WhatsApp
+                        </button>
+                        <button type="button" class="cancel-btn" id="cancelRegistration">Batal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animasi saat scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Smooth scroll untuk link navigasi
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animasi untuk teks berjalan
+        const marqueeContent = document.querySelector('.marquee-content');
+        const marqueeText = marqueeContent.innerHTML;
+        marqueeContent.innerHTML = marqueeText + ' ' + marqueeText;
+        
+        // Efek hover pada card pricing
+        const pricingCards = document.querySelectorAll('.pricing-card');
+        pricingCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = card.classList.contains('popular') 
+                    ? 'scale(1.05) translateY(-15px)' 
+                    : 'translateY(-15px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = card.classList.contains('popular') 
+                    ? 'scale(1.05)' 
+                    : 'translateY(0)';
+            });
+        });
+        
+        // Efek animasi pada gambar preview
+        const previewImages = document.querySelectorAll('.preview-img');
+        previewImages.forEach((img, index) => {
+            img.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // ============= POPUP SYARAT & KETENTUAN =============
+        const termsPopup = document.getElementById('termsPopup');
+        const openTermsPopupNav = document.getElementById('openTermsPopupNav');
+        const openTermsPopupFooter = document.getElementById('openTermsPopupFooter');
+        const openTermsPopupFooterLink = document.getElementById('openTermsPopupFooterLink');
+        const openTermsPopupCopyright = document.getElementById('openTermsPopupCopyright');
+        const closeTermsPopup = document.getElementById('closeTermsPopup');
+
+        // Fungsi untuk membuka popup Syarat & Ketentuan
+        function openTermsPopupFunc() {
+            termsPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fungsi untuk menutup popup Syarat & Ketentuan
+        function closeTermsPopupFunc() {
+            termsPopup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listener untuk tombol buka popup Syarat & Ketentuan
+        openTermsPopupNav.addEventListener('click', openTermsPopupFunc);
+        openTermsPopupFooter.addEventListener('click', openTermsPopupFunc);
+        openTermsPopupFooterLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openTermsPopupFunc();
+        });
+        openTermsPopupCopyright.addEventListener('click', function(e) {
+            e.preventDefault();
+            openTermsPopupFunc();
+        });
+
+        // Event listener untuk tombol tutup popup Syarat & Ketentuan
+        closeTermsPopup.addEventListener('click', closeTermsPopupFunc);
+
+        // ============= POPUP PANDUAN INSTALL =============
+        const installPopup = document.getElementById('installPopup');
+        const openInstallPopupNav = document.getElementById('openInstallPopupNav');
+        const openInstallPopupFooter = document.getElementById('openInstallPopupFooter');
+        const openInstallPopupFooterLink = document.getElementById('openInstallPopupFooterLink');
+        const openInstallPopupSupport = document.getElementById('openInstallPopupSupport');
+        const openInstallPopupCopyright = document.getElementById('openInstallPopupCopyright');
+        const closeInstallPopup = document.getElementById('closeInstallPopup');
+
+        // Fungsi untuk membuka popup Panduan Install
+        function openInstallPopupFunc() {
+            installPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fungsi untuk menutup popup Panduan Install
+        function closeInstallPopupFunc() {
+            installPopup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listener untuk tombol buka popup Panduan Install
+        openInstallPopupNav.addEventListener('click', openInstallPopupFunc);
+        openInstallPopupFooter.addEventListener('click', openInstallPopupFunc);
+        openInstallPopupFooterLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openInstallPopupFunc();
+        });
+        openInstallPopupSupport.addEventListener('click', function(e) {
+            e.preventDefault();
+            openInstallPopupFunc();
+        });
+        openInstallPopupCopyright.addEventListener('click', function(e) {
+            e.preventDefault();
+            openInstallPopupFunc();
+        });
+
+        // Event listener untuk tombol tutup popup Panduan Install
+        closeInstallPopup.addEventListener('click', closeInstallPopupFunc);
+
+        // ============= POPUP FAQ =============
+        const faqPopup = document.getElementById('faqPopup');
+        const openFaqPopupNav = document.getElementById('openFaqPopupNav');
+        const openFaqPopupFooter = document.getElementById('openFaqPopupFooter');
+        const openFaqPopupFooterLink = document.getElementById('openFaqPopupFooterLink');
+        const openFaqPopupSupport = document.getElementById('openFaqPopupSupport');
+        const openFaqPopupCopyright = document.getElementById('openFaqPopupCopyright');
+        const closeFaqPopup = document.getElementById('closeFaqPopup');
+
+        // Fungsi untuk membuka popup FAQ
+        function openFaqPopupFunc() {
+            faqPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fungsi untuk menutup popup FAQ
+        function closeFaqPopupFunc() {
+            faqPopup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listener untuk tombol buka popup FAQ
+        openFaqPopupNav.addEventListener('click', openFaqPopupFunc);
+        openFaqPopupFooter.addEventListener('click', openFaqPopupFunc);
+        openFaqPopupFooterLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openFaqPopupFunc();
+        });
+        openFaqPopupSupport.addEventListener('click', function(e) {
+            e.preventDefault();
+            openFaqPopupFunc();
+        });
+        openFaqPopupCopyright.addEventListener('click', function(e) {
+            e.preventDefault();
+            openFaqPopupFunc();
+        });
+
+        // Event listener untuk tombol tutup popup FAQ
+        closeFaqPopup.addEventListener('click', closeFaqPopupFunc);
+
+        // ============= FUNGSI UMUM POPUP =============
+        // Tutup popup saat klik di luar konten popup
+        document.querySelectorAll('.popup-overlay').forEach(popup => {
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    if (this.id === 'termsPopup') {
+                        closeTermsPopupFunc();
+                    } else if (this.id === 'installPopup') {
+                        closeInstallPopupFunc();
+                    } else if (this.id === 'faqPopup') {
+                        closeFaqPopupFunc();
+                    }
+                }
+            });
+        });
+
+        // Tutup popup dengan tombol ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (termsPopup.classList.contains('active')) {
+                    closeTermsPopupFunc();
+                } else if (installPopup.classList.contains('active')) {
+                    closeInstallPopupFunc();
+                } else if (faqPopup.classList.contains('active')) {
+                    closeFaqPopupFunc();
+                }
+            }
+        });
+
+        // Accordion untuk popup Syarat & Ketentuan
+        const popupTermItems = document.querySelectorAll('.popup-term-item');
+        popupTermItems.forEach(item => {
+            const header = item.querySelector('h4');
+            header.addEventListener('click', () => {
+                // Tutup semua item yang terbuka
+                popupTermItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Buka/tutup item yang diklik
+                item.classList.toggle('active');
+            });
+        });
+
+        // Buka item pertama Syarat & Ketentuan secara default
+        if (popupTermItems.length > 0) {
+            popupTermItems[0].classList.add('active');
+        }
+
+        // Accordion untuk FAQ
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                // Buka/tutup item yang diklik
+                item.classList.toggle('active');
+            });
+        });
+
+        // Buka item pertama FAQ secara default
+        if (faqItems.length > 0) {
+            faqItems[0].classList.add('active');
+        }
+
+        // ============= POPUP REGISTRASI =============
+        const registrationPopup = document.getElementById('registrationPopup');
+        const closeRegistrationPopup = document.getElementById('closeRegistrationPopup');
+        const cancelRegistration = document.getElementById('cancelRegistration');
+        const registrationForm = document.getElementById('registrationForm');
+        const selectedPackageName = document.getElementById('selectedPackageName');
+        const selectedPackagePrice = document.getElementById('selectedPackagePrice');
+        const packageTypeInput = document.getElementById('packageType');
+
+        // Variabel untuk menyimpan data paket yang dipilih
+        let selectedPackage = null;
+
+        // Fungsi untuk mendapatkan salam berdasarkan waktu
+        function getGreeting() {
+            const hour = new Date().getHours();
+            
+            if (hour >= 5 && hour < 12) {
+                return "Selamat Pagi";
+            } else if (hour >= 12 && hour < 15) {
+                return "Selamat Siang";
+            } else if (hour >= 15 && hour < 18) {
+                return "Selamat Sore";
+            } else if (hour >= 18 && hour < 24) {
+                return "Selamat Malam";
+            } else {
+                return "Selamat Malam";
+            }
+        }
+
+        // Fungsi untuk membuka popup registrasi dengan data paket
+        function openRegistrationPopup(packageData) {
+            selectedPackage = packageData;
+            
+            // Isi informasi paket di form
+            selectedPackageName.textContent = packageData.name;
+            selectedPackagePrice.textContent = packageData.price;
+            packageTypeInput.value = packageData.name;
+            
+            // Buka popup
+            registrationPopup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Auto-focus ke input pertama
+            setTimeout(() => {
+                document.getElementById('fullName').focus();
+            }, 300);
+        }
+
+        // Fungsi untuk menutup popup registrasi
+        function closeRegistrationPopupFunc() {
+            registrationPopup.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            registrationForm.reset();
+            selectedPackage = null;
+        }
+
+        // Event listener untuk tombol "Beli" di semua pricing card
+        document.querySelectorAll('.pricing-card .cta-btn').forEach((button, index) => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Dapatkan data dari card yang diklik
+                const card = this.closest('.pricing-card');
+                const packageName = card.querySelector('.pricing-title').textContent;
+                const packagePrice = card.querySelector('.pricing-price').textContent;
+                
+                // Siapkan data paket
+                const packageData = {
+                    name: packageName,
+                    price: packagePrice,
+                    type: index === 0 ? 'Triwulan' : index === 1 ? 'Tahunan' : 'Lifetime'
+                };
+                
+                // Buka popup registrasi
+                openRegistrationPopup(packageData);
+            });
+        });
+
+        // Event listener untuk tombol tutup popup registrasi
+        closeRegistrationPopup.addEventListener('click', closeRegistrationPopupFunc);
+        cancelRegistration.addEventListener('click', closeRegistrationPopupFunc);
+
+        // Event listener untuk submit form
+        registrationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ambil data dari form
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                address: document.getElementById('address').value,
+                phone: document.getElementById('phone').value,
+                mosqueName: document.getElementById('mosqueName').value,
+                mosqueAddress: document.getElementById('mosqueAddress').value,
+                tvType: document.getElementById('tvType').value,
+                package: selectedPackage.name,
+                greeting: getGreeting()
+            };
+            
+            // Format pesan untuk WhatsApp
+            const message = `Assalamu'alaikum. ${formData.greeting}
+
+        *DATA REGISTRASI MAHALLAH TV*
+
+        *Nama Lengkap* : ${formData.fullName}
+        *Alamat* : ${formData.address}
+        *Nomor HP* : ${formData.phone}
+        *Nama Masjid* : ${formData.mosqueName}
+        *Alamat Masjid* : ${formData.mosqueAddress}
+        *Jenis TV* : ${formData.tvType}
+        *Paket* : ${formData.package}
+
+        Saya ingin membeli Aplikasi Mahallah TV sesuai dengan data diatas.
+
+        Terima Kasih.`;
+            
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Nomor WhatsApp Anda
+            const phoneNumber = '6289609745090';
+            
+            // Buat URL WhatsApp
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Buka WhatsApp di tab baru
+            window.open(whatsappUrl, '_blank');
+            
+            // Tutup popup
+            closeRegistrationPopupFunc();
+            
+            // Tampilkan konfirmasi (opsional)
+            alert('Form telah dikirim! Anda akan diarahkan ke WhatsApp untuk konfirmasi pembelian.');
+        });
+
+        // Tutup popup saat klik di luar konten popup
+        registrationPopup.addEventListener('click', function(e) {
+            if (e.target === registrationPopup) {
+                closeRegistrationPopupFunc();
+            }
+        });
+
+        // Tutup popup dengan tombol ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && registrationPopup.classList.contains('active')) {
+                closeRegistrationPopupFunc();
+            }
+        });
+
+        // Validasi input nomor telepon
+        document.getElementById('phone').addEventListener('input', function(e) {
+            // Hapus karakter non-digit
+            this.value = this.value.replace(/[^\d]/g, '');
+            
+            // Tambahkan format jika panjang cukup
+            if (this.value.length > 3 && this.value.length <= 6) {
+                this.value = this.value.replace(/(\d{3})(\d{1,3})/, '$1-$2');
+            } else if (this.value.length > 6 && this.value.length <= 9) {
+                this.value = this.value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1-$2-$3');
+            } else if (this.value.length > 9) {
+                this.value = this.value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,4})/, '$1-$2-$3-$4');
+            }
+        });
+
+        // Tambahkan juga ke fungsi umum untuk menutup popup
+        document.querySelectorAll('.popup-overlay').forEach(popup => {
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    if (this.id === 'termsPopup') {
+                        closeTermsPopupFunc();
+                    } else if (this.id === 'installPopup') {
+                        closeInstallPopupFunc();
+                    } else if (this.id === 'faqPopup') {
+                        closeFaqPopupFunc();
+                    } else if (this.id === 'registrationPopup') {
+                        closeRegistrationPopupFunc();
+                    }
+                }
+            });
+        });
+
+        // Tambahkan juga ke event listener ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (termsPopup.classList.contains('active')) {
+                    closeTermsPopupFunc();
+                } else if (installPopup.classList.contains('active')) {
+                    closeInstallPopupFunc();
+                } else if (faqPopup.classList.contains('active')) {
+                    closeFaqPopupFunc();
+                } else if (registrationPopup.classList.contains('active')) {
+                    closeRegistrationPopupFunc();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
